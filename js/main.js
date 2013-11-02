@@ -21,7 +21,7 @@ jQuery(document).ready(function($) {
             this.echo("Get in touch via:")
             this.echo("E: " + e); 
             this.echo("T: @rgv151"); 
-            this.echo("G: @rgv151"); 
+            this.echo("G: +rgv151"); 
         },
         about: function() {
         }
