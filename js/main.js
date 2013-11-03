@@ -77,7 +77,7 @@ var App = {
         this.echo("Google+: +rgv151"); 
     },
     about: function() {
-        this.echo("This page built with <a href='http://terminal.jcubic.pl/' target='_blank'>jQuery Terminal Emulator</a> plugin, and hosted by <a href='http://pages.github.com' target='_blank'>GitHub Pages<a/>. Source code is also available on <a href='https://github.com/rgv151/huy.im/tree/gh-pages' target='_blank'>GitHub</a>.", {raw:true});
+        this.echo("This page built with <a href='http://terminal.jcubic.pl/' target='_blank'>jQuery Terminal Emulator</a> plugin, and hosted by <a href='http://pages.github.com' target='_blank'>GitHub Pages<a/>. Source code is also available on <a href='https://github.com/rgv151/huy.im/tree/gh-pages' target='_blank'>GitHub</a>.\n\nThis page is under development.. keep visting for many cool things on the future.", {raw:true});
     },
     id: function(){
         this.echo("uid=1000(tui) gid=1000(tui)");
