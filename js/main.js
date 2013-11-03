@@ -1,4 +1,5 @@
-var API_PREFIX = 'https://api.github.com/repos/rgv151/huy.im/git';
+var API_PREFIX = 'https://api.github.com/repos/rgv151/huy.im/git',
+    e = "tu&#105;&#64;h&#117;y&#46;&#105;&#109;";
 var GitHub = new (function() {
     this.fs = new Object;
     this.loaded = false;
@@ -77,7 +78,7 @@ var App = {
         this.echo("Google+: +rgv151"); 
     },
     about: function() {
-        this.echo("This page built with <a href='http://terminal.jcubic.pl/' target='_blank'>jQuery Terminal Emulator</a> plugin, and hosted by <a href='http://pages.github.com' target='_blank'>GitHub Pages<a/>. Source code is also available on <a href='https://github.com/rgv151/huy.im/tree/gh-pages' target='_blank'>GitHub</a>.\n\nThis page is under development.. keep visting for many cool things on the future.", {raw:true});
+        this.echo("This page built with <a href='http://terminal.jcubic.pl/' target='_blank'>jQuery Terminal Emulator</a> plugin, and hosted by <a href='http://pages.github.com' target='_blank'>GitHub Pages<a/>. Source code is also available on <a href='https://github.com/rgv151/huy.im/tree/gh-pages' target='_blank'>GitHub</a>.<br/><br/>This page is under development.. keep visting for many cool things on the future.", {raw:true});
     },
     id: function(){
         this.echo("uid=1000(tui) gid=1000(tui)");
@@ -131,7 +132,6 @@ var App = {
 }
 
 jQuery(document).ready(function($) {
-    var e = "tu&#105;&#64;h&#117;y&#46;&#105;&#109;";
     $('body').terminal(App, {
         greetings: "[[b;#44D544;].___            ___ ___\n" +
             "|   | _____    /   |   \\ __ __ ___.__.\n" +
