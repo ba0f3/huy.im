@@ -16,11 +16,11 @@ var GitHub = new (function() {
     };
         
     var self = this;    
-    $.getJSON(API_PREFIX + '/refs/heads/master', function(data, textStatus, jqXHR){
-    //$.getJSON('data/master.json', function(data, textStatus, jqXHR){
+    //$.getJSON(API_PREFIX + '/refs/heads/master', function(data, textStatus, jqXHR){
+    $.getJSON('data/master.json', function(data, textStatus, jqXHR){
         var sha = data.object.sha;
-        $.getJSON(API_PREFIX + '/trees/'+sha+'?recursive=1', function(data, textStatus, jqXHR){
-        //$.getJSON('data/tree.json', function(data, textStatus, jqXHR){
+        //$.getJSON(API_PREFIX + '/trees/'+sha+'?recursive=1', function(data, textStatus, jqXHR){
+        $.getJSON('data/tree.json', function(data, textStatus, jqXHR){
             for(i in data.tree) {
                 var item = data.tree[i];                
                 var paths = item.path.split('/');   
@@ -101,7 +101,24 @@ var App = {
             GitHub.stack.push(path);
         }
     },
-    cat: function(){
+    cat: function(path){
+        var wd = GitHub.getCurrentWorkingDirectory();
+        var item = wd[path];
+        if(!item) {
+            this.error("cat: " + path + ": No such file or directory");
+        } else if(item.type == 'tree') {
+            this.error("cat: " + path  + ": Is a directory");
+        } else {
+            var term = this;
+            term.pause();
+            $.getJSON(item.url, function(data, textStatus, jqXHR){
+                var content = data.content.trim()
+                if(data.encoding == 'base64')
+                    content = decode64(content);
+                term.echo(content); 
+                term.resume();
+            });
+        }
     },
     startx: function() {
         this.error('xinit: unable to connect to X server: Resource temporarily unavailable\nxinit: server error');
