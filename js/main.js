@@ -6,33 +6,45 @@ jQuery(document).ready(function($) {
         },
         help: function() {
             this.echo("Available commands:");
-            this.echo("\twhoami      display my short brief");
+            this.echo("\tabout       information about this page");
             this.echo("\tcontact     display contact infomation");
-            this.echo("\thelp        display this help screen.");            
+            this.echo("\twhoami      display my short brief");
+            this.echo("\thelp        this help screen.");                        
+            this.echo("");
+            this.echo("some other basic Lix commands are available: cat id ls startx")
+        },
+        whoami: function() {
+            this.echo("Hello, my name is Huy Doan (aka Bruce Doan), I'm from  HCMc, Vietnam.");
+            this.echo("I'm a programmer, Linux system administrator. I really love Open Source and passionate to create, contrinute to Open Source projects");
+            this.echo("");
+        },
+        contact: function() {
+            this.echo("Get in touch via:")
+            this.echo("Email:   " + e); 
+            this.echo("Twitter: @rgv151"); 
+            this.echo("Google+: +rgv151"); 
+        },
+        about: function() {
+            this.echo("This page built with <a href='http://terminal.jcubic.pl/' target='_blank'>jQuery Terminal Emulator</a> plugin, and hosted by <a href='http://pages.github.com' target='_blank'>GitHub Pages<a/>. Source code is also available on <a href='https://github.com/rgv151/huy.im/tree/gh-pages' target='_blank'>GitHub</a>.", {raw:true});
         },
         id: function(){
             this.echo("uid=1000(tui) gid=1000(tui)");
         },
-        whoami: function() {
-            this.echo("Hello, my name is Huy (aka Bruce Doan), i'm from  HCMc, Vietnam.");
-             this.echo("I'm a programmer, linux system administrator. I really love Open Source and passionate to create, contrinute to Open Source projects");
+        ls: function() {
         },
-        contact: function() {
-            this.echo("Get in touch via:")
-            this.echo("E: " + e); 
-            this.echo("T: @rgv151"); 
-            this.echo("G: +rgv151"); 
+        cat: function(){
         },
-        about: function() {
+        startx: function() {
+            this.error('xinit: unable to connect to X server: Resource temporarily unavailable\nxinit: server error');
         }
     }, {
-        greetings: ".___            ___ ___\n" +
+        greetings: "[[b;#44D544;].___            ___ ___\n" +
             "|   | _____    /   |   \\ __ __ ___.__.\n" +
             "|   |/     \\  /    ~    \\  |  <   |  |\n" + 
             "|   |  Y Y  \\ \\    Y    /  |  /\\___  |\n" +
             "|___|__|_|  /  \\___|_  /|____/ / ____|\n" +
-            "          \\/         \\/        \\/     \n" +
-            "Hi, let's explore my little box on the Internet, or type help for more information",
+            "          \\/         \\/        \\/     ]\n" +
+            "Hi, let's explore my little box on the Internet, type [[b;#44D544;]help] if you dont know what to do next.\n",
         prompt: e + ":~# ",
         onBlur: function() {
             // prevent loosing focus
