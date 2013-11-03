@@ -1,43 +1,116 @@
+var API_PREFIX = 'https://api.github.com/repos/rgv151/huy.im/git';
+var GitHub = new (function() {
+    this.fs = new Object;
+    this.loaded = false;
+    this.stack = new Array;
+    
+    this.getCurrentWorkingDirectory = function() {
+        if(this.stack.length == 0) 
+            return this.fs;
+        
+        var fs = this.fs
+        for(var i in this.stack) {
+            fs = fs[this.stack[i]];
+        }
+        return fs;
+    };
+        
+    var self = this;    
+    $.getJSON(API_PREFIX + '/refs/heads/master', function(data, textStatus, jqXHR){
+    //$.getJSON('data/master.json', function(data, textStatus, jqXHR){
+        var sha = data.object.sha;
+        $.getJSON(API_PREFIX + '/trees/'+sha+'?recursive=1', function(data, textStatus, jqXHR){
+        //$.getJSON('data/tree.json', function(data, textStatus, jqXHR){
+            for(i in data.tree) {
+                var item = data.tree[i];                
+                var paths = item.path.split('/');   
+                
+                var fs = self.fs;                
+                for(var i=0; i< paths.length; i++) {
+                    var path = paths[i];                    
+                    
+                    if(!fs.hasOwnProperty(path)) {
+                       fs[path] = new Object;
+                    } else {
+                       fs = fs[path]
+                    }
+                       
+                    if (i == paths.length-1) {
+                        item.path = path;
+                        fs[path] = item;
+                    }
+                }
+            }
+            self.loaded = true;
+        });
+    });
+})();
+
+var App = {
+    echo: function(arg1) {
+        this.echo(arg1);
+    },
+    help: function() {
+        this.echo("Available commands:");
+        this.echo("\tabout       information about this page");
+        this.echo("\tcontact     display contact infomation");
+        this.echo("\twhoami      display my short brief");
+        this.echo("\thelp        this help screen.");                        
+        this.echo("");
+        this.echo("some other basic Linux commands are available: cat cd id ls startx")
+    },
+    whoami: function() {
+        this.echo("Hello, my name is Huy Doan (aka Bruce Doan), I'm from  HCMc, Vietnam.");
+        this.echo("I'm a programmer, Linux system administrator. I really love Open Source and passionate to create, contrinute to Open Source projects");
+        this.echo("");
+        this.echo("I'm available for hiring as freelancer for");
+    },
+    contact: function() {
+        this.echo("Get in touch via:")
+        this.echo("Email:   " + e); 
+        this.echo("Twitter: @rgv151"); 
+        this.echo("Google+: +rgv151"); 
+    },
+    about: function() {
+        this.echo("This page built with <a href='http://terminal.jcubic.pl/' target='_blank'>jQuery Terminal Emulator</a> plugin, and hosted by <a href='http://pages.github.com' target='_blank'>GitHub Pages<a/>. Source code is also available on <a href='https://github.com/rgv151/huy.im/tree/gh-pages' target='_blank'>GitHub</a>.", {raw:true});
+    },
+    id: function(){
+        this.echo("uid=1000(tui) gid=1000(tui)");
+    },
+    ls: function() {        
+        var wd = GitHub.getCurrentWorkingDirectory();
+        for(i in wd) {
+            if(typeof wd[i] == 'object') {
+                var item = wd[i];
+                this.echo(item.mode+'\t' + (item.type=='tree'?'[[b;#44D544;]'+item.path+']':item.path));
+            }
+        }
+    },
+    cd: function(path) {        
+        if(path == '..') {
+            GitHub.stack.pop();
+            return;
+        }        
+        var wd = GitHub.getCurrentWorkingDirectory();
+        var item = wd[path]
+        if(!item) {
+            this.error("cd: " + path + ": No such file or directory");
+        } else if(item.type != 'tree') {
+            this.error("cd: " + path  + ": Not a directory");
+        } else {
+            GitHub.stack.push(path);
+        }
+    },
+    cat: function(){
+    },
+    startx: function() {
+        this.error('xinit: unable to connect to X server: Resource temporarily unavailable\nxinit: server error');
+    }
+}
+
 jQuery(document).ready(function($) {
     var e = "tu&#105;&#64;h&#117;y&#46;&#105;&#109;";
-    $('body').terminal({
-        echo: function(arg1) {
-            this.echo(arg1);
-        },
-        help: function() {
-            this.echo("Available commands:");
-            this.echo("\tabout       information about this page");
-            this.echo("\tcontact     display contact infomation");
-            this.echo("\twhoami      display my short brief");
-            this.echo("\thelp        this help screen.");                        
-            this.echo("");
-            this.echo("some other basic Lix commands are available: cat id ls startx")
-        },
-        whoami: function() {
-            this.echo("Hello, my name is Huy Doan (aka Bruce Doan), I'm from  HCMc, Vietnam.");
-            this.echo("I'm a programmer, Linux system administrator. I really love Open Source and passionate to create, contrinute to Open Source projects");
-            this.echo("");
-        },
-        contact: function() {
-            this.echo("Get in touch via:")
-            this.echo("Email:   " + e); 
-            this.echo("Twitter: @rgv151"); 
-            this.echo("Google+: +rgv151"); 
-        },
-        about: function() {
-            this.echo("This page built with <a href='http://terminal.jcubic.pl/' target='_blank'>jQuery Terminal Emulator</a> plugin, and hosted by <a href='http://pages.github.com' target='_blank'>GitHub Pages<a/>. Source code is also available on <a href='https://github.com/rgv151/huy.im/tree/gh-pages' target='_blank'>GitHub</a>.", {raw:true});
-        },
-        id: function(){
-            this.echo("uid=1000(tui) gid=1000(tui)");
-        },
-        ls: function() {
-        },
-        cat: function(){
-        },
-        startx: function() {
-            this.error('xinit: unable to connect to X server: Resource temporarily unavailable\nxinit: server error');
-        }
-    }, {
+    $('body').terminal(App, {
         greetings: "[[b;#44D544;].___            ___ ___\n" +
             "|   | _____    /   |   \\ __ __ ___.__.\n" +
             "|   |/     \\  /    ~    \\  |  <   |  |\n" + 
@@ -45,7 +118,16 @@ jQuery(document).ready(function($) {
             "|___|__|_|  /  \\___|_  /|____/ / ____|\n" +
             "          \\/         \\/        \\/     ]\n" +
             "Hi, let's explore my little box on the Internet, type [[b;#44D544;]help] if you dont know what to do next.\n",
-        prompt: e + ":~# ",
+        prompt: function(p){
+            var path = '~'
+            if(GitHub.stack.length > 0) {
+                for(i in GitHub.stack) {
+                    path+= '/';
+                    path+= GitHub.stack[i]
+                }
+            }
+            p(e + ":" + path + "# ");
+        },
         onBlur: function() {
             // prevent loosing focus
             return false;
