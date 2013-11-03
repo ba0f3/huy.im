@@ -16,11 +16,11 @@ var GitHub = new (function() {
     };
         
     var self = this;    
-    //$.getJSON(API_PREFIX + '/refs/heads/master', function(data, textStatus, jqXHR){
-    $.getJSON('data/master.json', function(data, textStatus, jqXHR){
+    $.getJSON(API_PREFIX + '/refs/heads/master', function(data, textStatus, jqXHR){
+    //$.getJSON('data/master.json', function(data, textStatus, jqXHR){
         var sha = data.object.sha;
-        //$.getJSON(API_PREFIX + '/trees/'+sha+'?recursive=1', function(data, textStatus, jqXHR){
-        $.getJSON('data/tree.json', function(data, textStatus, jqXHR){
+        $.getJSON(API_PREFIX + '/trees/'+sha+'?recursive=1', function(data, textStatus, jqXHR){
+        //$.getJSON('data/tree.json', function(data, textStatus, jqXHR){
             for(i in data.tree) {
                 var item = data.tree[i];                
                 var paths = item.path.split('/');   
@@ -60,10 +60,15 @@ var App = {
         this.echo("some other basic Linux commands are available: cat cd id ls startx")
     },
     whoami: function() {
-        this.echo("Hello, my name is Huy Doan (aka Bruce Doan), I'm from  HCMc, Vietnam.");
+        this.echo("Hello, my name is Huy Doan (aka Bruce Doan), I'm dad of Mia (a super cute girl) and I'm from  HCMc, Vietnam.");
         this.echo("I'm a programmer, Linux system administrator. I really love Open Source and passionate to create, contrinute to Open Source projects");
-        this.echo("");
-        this.echo("I'm available for hiring as freelancer for");
+        this.echo("My technical summary:");
+        this.echo("\t- Have strong knowledge about Linux operating system and open source software.");
+        this.echo("\t- Responsible for day-to-day defense of our network, servers.");
+        this.echo("\t- Experienced with web application development, specialist with PHP/MySQL. Can develop desktop/web application with Java/Python.");
+        this.echo("\t- Able to make mobile apps using many different technologies (Native/Titanium/PhoneGap)");
+        this.echo("\nI'm available to work as freelancer, so feel free to get in touch via [[b;#44D544;]contact] command");
+
     },
     contact: function() {
         this.echo("Get in touch via:")
@@ -133,8 +138,8 @@ jQuery(document).ready(function($) {
             "|   |/     \\  /    ~    \\  |  <   |  |\n" + 
             "|   |  Y Y  \\ \\    Y    /  |  /\\___  |\n" +
             "|___|__|_|  /  \\___|_  /|____/ / ____|\n" +
-            "          \\/         \\/        \\/     ]\n" +
-            "Hi, let's explore my little box on the Internet, type [[b;#44D544;]help] if you dont know what to do next.\n",
+            "          \\/         \\/        \\/     \n" +
+            "Hi, let's explore my little box on the Internet!]\n\nType [[b;#44D544;]whoami] to read something about me, [[b;#44D544;]ls] to explore resources on this page and [[b;#44D544;]help] if you dont know what to do next.\n",
         prompt: function(p){
             var path = '~'
             if(GitHub.stack.length > 0) {
