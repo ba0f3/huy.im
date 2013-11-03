@@ -4,7 +4,12 @@ var GitHub = new (function() {
     this.fs = new Object;
     this.loaded = false;
     this.stack = new Array;
-    
+
+    this.getCurrentPath = function(){
+        if(this.stack.length == 0) 
+            return '~/';
+        return this.stack.join('/')
+    },    
     this.getCurrentWorkingDirectory = function() {
         if(this.stack.length == 0) 
             return this.fs;
@@ -48,8 +53,10 @@ var GitHub = new (function() {
 })();
 
 var App = {
-    echo: function(arg1) {
-        this.echo(arg1);
+    echo: function(text) {
+        this.echo(text);
+
+        if(ga != undefined) ga('send', 'event', GitHub.getCurrentPath(), 'echo', 'text', text);
     },
     help: function() {
         this.echo("Available commands:");
@@ -59,6 +66,8 @@ var App = {
         this.echo("\thelp        this help screen.");                        
         this.echo("");
         this.echo("some other basic Linux commands are available: cat cd id ls startx")
+
+        if(ga != undefined) ga('send', 'event', GitHub.getCurrentPath(), 'help');
     },
     whoami: function() {
         this.echo("Hello, my name is Huy Doan (aka Bruce Doan), I'm dad of Mia (a super cute girl) and I'm from  HCMc, Vietnam.");
@@ -76,12 +85,18 @@ var App = {
         this.echo("Email:   " + e); 
         this.echo("Twitter: @rgv151"); 
         this.echo("Google+: +rgv151"); 
+
+        if(ga != undefined) ga('send', 'event', GitHub.getCurrentPath(), 'contact');
     },
     about: function() {
         this.echo("This page built with <a href='http://terminal.jcubic.pl/' target='_blank'>jQuery Terminal Emulator</a> plugin, and hosted by <a href='http://pages.github.com' target='_blank'>GitHub Pages<a/>. Source code is also available on <a href='https://github.com/rgv151/huy.im/tree/gh-pages' target='_blank'>GitHub</a>.<br/><br/>This page is under development.. keep visting for many cool things on the future.", {raw:true});
+
+        if(ga != undefined) ga('send', 'event', GitHub.getCurrentPath(), 'about');
     },
     id: function(){
         this.echo("uid=1000(tui) gid=1000(tui)");
+
+        if(ga != undefined) ga('send', 'event', GitHub.getCurrentPath(), 'id');
     },
     ls: function() {        
         var wd = GitHub.getCurrentWorkingDirectory();
@@ -91,6 +106,8 @@ var App = {
                 this.echo(item.mode+'\t' + (item.type=='tree'?'[[b;#44D544;]'+item.path+']':item.path));
             }
         }
+
+        if(ga != undefined) ga('send', 'event', GitHub.getCurrentPath(), 'ls');
     },
     cd: function(path) {        
         if(path == '..') {
@@ -106,6 +123,8 @@ var App = {
         } else {
             GitHub.stack.push(path);
         }
+
+        if(ga != undefined) ga('send', 'event', GitHub.getCurrentPath(), 'cd', 'path', path);
     },
     cat: function(path){
         var wd = GitHub.getCurrentWorkingDirectory();
@@ -125,9 +144,12 @@ var App = {
                 term.resume();
             });
         }
+        if(ga != undefined) ga('send', 'event', GitHub.getCurrentPath(), 'cat', 'path', path);
     },
     startx: function() {
         this.error('xinit: unable to connect to X server: Resource temporarily unavailable\nxinit: server error');
+
+        if(ga != undefined) ga('send', 'event', GitHub.getCurrentPath(), 'startx');
     }
 }
 
