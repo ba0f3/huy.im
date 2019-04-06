@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/tui
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://huy.im
+  * I am tui (https://keybase.io/tui) on keybase.
+  * I have a public key ASAzEvVoPGMcYdCG8hs7V-501p9CwWRZwGgtroIFzteLIgo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120e4d1f1b1c7ec73b21eefbe3e9501247a3382361d8eff832bd7e78c7f5b688eba0a",
+      "host": "keybase.io",
+      "kid": "01203312f5683c631c61d086f21b3b57ee74d69f42c16459c0682dae8205ced78b220a",
+      "uid": "560c3d58d6f023ebc69fc4b2ee259719",
+      "username": "tui"
+    },
+    "merkle_root": {
+      "ctime": 1554577181,
+      "hash": "6fdf37f578b224077affe1323a4392a50bbc64b3622a4132e2bb45f6bf41ff6339085d5bb3a28bae174ecf7c9b020bf4e42ae3c50be59ce6dabacf506a4a6b92",
+      "hash_meta": "46f88d4c31a941479123e839221d22d7e0a496f1b1a35146b8baba025de174ec",
+      "seqno": 5109966
+    },
+    "service": {
+      "entropy": "81xtVwM5Bs7JH+SbhHLzuc28",
+      "hostname": "huy.im",
+      "protocol": "http:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "3.1.2"
+  },
+  "ctime": 1554577231,
+  "expire_in": 504576000,
+  "prev": "eb30cbcf945460b9505506c7a1ef51e13a38ec2adb2dda32466393ce8dcc24c4",
+  "seqno": 79,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgMxL1aDxjHGHQhvIbO1fudNafQsFkWcBoLa6CBc7XiyIKp3BheWxvYWTESpcCT8Qg6zDLz5RUYLlQVQbHoe9R4To47CrbLdoyRmOTzo3MJMTEILXJSZoKuzgJU+cI5+Tt83F6JRWSZBld4Z7UdvoZD9+mAgHCo3NpZ8RAW0KAItaAlLgtl2Rm9B04uutRm0PWRUyg5fVFLPUlHS+/X4JrWlAYTCRQfa0iMVf0SALYMFqq5HIFtcaOmP1jCqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIIzT3+F2wKKSwzpvpYaD2mqUFWE2FunZmbhpdo1JZmp3o3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/tui
+
+==================================================================
